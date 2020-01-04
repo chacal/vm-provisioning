@@ -1,0 +1,9 @@
+#cloud-config
+users:
+  - name: jihartik
+    lock_passwd: false
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    passwd: $6$rounds=4096$3eVMZiy18$78qn6pCJ9dhLSzMNhSx24YS5xX4NkMEK7ua8eGO.i6ZcwU8CEwXNnxI0CdxffPP3BU3owEbiJhEbH6bu2TnZ1.
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEApxT0ZP4MsFQ7PC43ugWcGNbHLfXN3kqx0rMMhfGsKCxvhLTGYwveDFfIrimCWWCWg248oNR0jzoH5mKz/stidF8fsVubBegAJ32N/f2jJ6hHlnmCbRBCNlm1BL5Yz+YkMVWTMXa38ICaJhOncDwtZvzUqicc6b7GQmRZ4X7tQTUD91ln7t+7VSqEYXeCmvAL4fY8i2PMlWZoaN6FHmquJYH09w0Hu20Nz5SyfqjYk1vhKnDk93CouTcCR4zONcZdyip7b5qQAHfkcyCqZLvFgadedqsFwe2lu9WgpWATTrJUWReykDzk/jHMaivboXxLaVxwvAmF1CejmWV74VNUFw== jihartik@localhost
