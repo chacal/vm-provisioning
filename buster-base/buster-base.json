@@ -1,14 +1,18 @@
 {
+  "variables": {
+    "name": "buster-base"
+  },
+
   "builders": [
     {
       "type": "qemu",
-      "vm_name": "buster-base.qcow2",
-      "iso_url": "/Users/jihartik/nonbackupped/Disk Images/debian-10-generic-amd64-20191117-80.qcow2",
+      "vm_name": "{{user `name`}}.qcow2",
+      "iso_url": "{{user `disk_image_dir`}}/debian-10-generic-amd64-20191117-80.qcow2",
       "iso_checksum": "5be0c47f7a0dae2a797088b7c4d38331",
       "iso_checksum_type": "md5",
       "disk_image": true,
-      "output_directory": "/Users/jihartik/nonbackupped/Virtual Machines/packer/buster-base",
-      "disk_size": "50G",
+      "output_directory": "{{user `vm_dir`}}/{{user `name`}}",
+      "disk_size": "100G",
       "format": "qcow2",
       "shutdown_command": "sudo -S shutdown -P now",
       "accelerator": "hvf",
@@ -25,7 +29,7 @@
           "type=1,serial=ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/"
         ]
       ],
-      "http_directory": "cloud-init"
+      "http_directory": "{{ template_dir }}/cloud-init"
     }
   ]
 }
