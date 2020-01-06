@@ -53,6 +53,10 @@
     {
       "type": "shell",
       "inline": "sudo cloud-init clean"
+    },
+    {
+      "type": "shell",
+      "inline": "sudo rm -f /etc/default/grub.d/40-force-partuuid.cfg; sudo update-grub2;"
     }
   ]
 }
