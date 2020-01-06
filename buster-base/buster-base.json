@@ -39,7 +39,11 @@
     },
     {
       "type": "shell",
-      "script": "{{ template_dir }}/setup_dotfiles.sh",
+      "script": "{{ template_dir }}/../scripts/provision_common_base.sh"
+    },
+    {
+      "type": "shell",
+      "script": "{{ template_dir }}/../scripts/setup_dotfiles.sh",
       "environment_vars": [
         "GITHUB_ACCESS_TOKEN={{user `github_access_token`}}"
       ]

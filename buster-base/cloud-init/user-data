@@ -17,27 +17,4 @@ apt:
 
 package_upgrade: true
 packages:
- - net-tools
- - sysstat
- - htop
- - tmux
- - git
- - wget
- - curl
- - less
- - libnss-mdns
- - tcpdump
- - man
- - iftop
- - dnsutils
- - ndisc6
- - avahi-daemon
- - open-vm-tools
- - zsh
- - stow
  - exa
-
-runcmd:
- - sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
- - dpkg-reconfigure --frontend=noninteractive locales
- - update-locale LANG=en_US.UTF-8
