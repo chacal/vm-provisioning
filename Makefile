@@ -3,6 +3,9 @@ VM_BASE_DIR=/Users/jihartik/nonbackupped/vm
 PACKER_BUILD=packer build -var-file packer-vars.json
 CREATE_VMX=$(MAKEFILE_DIR)create-vmx.sh
 
+include env
+export
+
 .SECONDEXPANSION:
 VM_DIR=$(VM_BASE_DIR)/$$(VM_NAME)
 

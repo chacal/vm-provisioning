@@ -1,6 +1,7 @@
 {
   "variables": {
-    "name": "buster-base"
+    "name": "buster-base",
+    "github_access_token": "{{env `GITHUB_ACCESS_TOKEN`}}"
   },
   "builders": [
     {
@@ -35,6 +36,13 @@
     {
       "type": "shell",
       "script": "{{ template_dir }}/../scripts/wait_for_cloud_init.sh"
+    },
+    {
+      "type": "shell",
+      "script": "{{ template_dir }}/setup_dotfiles.sh",
+      "environment_vars": [
+        "GITHUB_ACCESS_TOKEN={{user `github_access_token`}}"
+      ]
     }
   ]
 }
