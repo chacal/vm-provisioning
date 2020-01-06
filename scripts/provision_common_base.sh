@@ -2,6 +2,7 @@
 set -e
 
 sudo apt-get update
+sudo apt-get upgrade -y
 sudo apt-get install -y net-tools sysstat htop tmux git wget curl less \
     libnss-mdns tcpdump man iftop dnsutils ndisc6 avahi-daemon  \
     open-vm-tools zsh stow
