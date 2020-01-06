@@ -115,4 +115,5 @@ svga.guestBackedPrimaryAware = "TRUE"
 vc.uuid = ""
 policy.vm.mvmtid = ""
 floppy0.present = "FALSE"
+firmware = "efi"
 EOF
