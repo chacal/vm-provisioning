@@ -1,6 +1,6 @@
 MAKEFILE_DIR=$(dir $(realpath $(firstword $(MAKEFILE_LIST))))
 VM_BASE_DIR=/Users/jihartik/nonbackupped/vm
-PACKER_BUILD=packer build -var-file packer-vars.json
+PACKER_BUILD=packer build -on-error=ask -var-file packer-vars.json
 CREATE_VMX=$(MAKEFILE_DIR)create-vmx.sh
 
 include env
