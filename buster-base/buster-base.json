@@ -43,6 +43,10 @@
       "environment_vars": [
         "GITHUB_ACCESS_TOKEN={{user `github_access_token`}}"
       ]
+    },
+    {
+      "type": "shell",
+      "inline": "sudo cloud-init clean"
     }
   ]
 }
