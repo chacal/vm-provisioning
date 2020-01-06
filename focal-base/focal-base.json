@@ -1,0 +1,58 @@
+{
+  "variables": {
+    "name": "focal-base",
+    "github_access_token": "{{env `GITHUB_ACCESS_TOKEN`}}"
+  },
+  "builders": [
+    {
+      "type": "qemu",
+      "vm_name": "{{user `name`}}.qcow2",
+      "iso_url": "{{user `disk_image_dir`}}/focal-server-cloudimg-amd64-20191217.qcow2",
+      "iso_checksum": "3d83ea98149099781be72cff299575df",
+      "iso_checksum_type": "md5",
+      "disk_image": true,
+      "output_directory": "{{user `vm_dir`}}/{{user `name`}}",
+      "disk_size": "100G",
+      "memory": 2048,
+      "cpus": 2,
+      "format": "qcow2",
+      "shutdown_command": "sudo -S shutdown -P now",
+      "accelerator": "hvf",
+      "display": "cocoa",
+      "ssh_username": "jihartik",
+      "ssh_private_key_file": "~/.ssh/id_rsa",
+      "qemuargs": [
+        [
+          "-smbios",
+          "type=1,serial=ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/"
+        ]
+      ],
+      "http_directory": "{{ template_dir }}/cloud-init"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "{{ template_dir }}/../scripts/wait_for_cloud_init.sh"
+    },
+    {
+      "type": "shell",
+      "script": "{{ template_dir }}/../scripts/provision_common_base.sh"
+    },
+    {
+      "type": "shell",
+      "script": "{{ template_dir }}/setup_netplan.sh"
+    },
+    {
+      "type": "shell",
+      "script": "{{ template_dir }}/../scripts/setup_dotfiles.sh",
+      "environment_vars": [
+        "GITHUB_ACCESS_TOKEN={{user `github_access_token`}}"
+      ]
+    },
+    {
+      "type": "shell",
+      "inline": "sudo cloud-init clean"
+    }
+  ]
+}

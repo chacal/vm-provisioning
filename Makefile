@@ -13,6 +13,10 @@ buster-base: GUEST_OS=debian10-64
 buster-base: VM_NAME=$(notdir $(basename $@))
 buster-base: $(VM_DIR)/$$@.vmdk $(VM_DIR)/$$@.vmx
 
+focal-base: GUEST_OS=ubuntu-64
+focal-base: VM_NAME=$(notdir $(basename $@))
+focal-base: $(VM_DIR)/$$@.vmdk $(VM_DIR)/$$@.vmx
+
 openthread-builder: GUEST_OS=debian10-64
 openthread-builder: VM_NAME=$(notdir $(basename $@))
 openthread-builder: $(VM_DIR)/$$@.vmdk $(VM_DIR)/$$@.vmx
