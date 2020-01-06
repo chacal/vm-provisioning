@@ -1,0 +1,43 @@
+{
+  "variables": {
+    "name": "openthread-builder"
+  },
+  "builders": [
+    {
+      "type": "qemu",
+      "vm_name": "{{user `name`}}.qcow2",
+      "iso_url": "{{user `vm_dir`}}/buster-base/buster-base.qcow2",
+      "iso_checksum_type": "none",
+      "disk_image": true,
+      "output_directory": "{{user `vm_dir`}}/{{user `name`}}",
+      "disk_size": "100G",
+      "format": "qcow2",
+      "shutdown_command": "sudo -S shutdown -P now",
+      "accelerator": "hvf",
+      "display": "cocoa",
+      "ssh_username": "jihartik",
+      "ssh_private_key_file": "~/.ssh/id_rsa",
+      "qemuargs": [
+        [
+          "-cpu",
+          "host"
+        ],
+        [
+          "-smbios",
+          "type=1,serial=ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/"
+        ]
+      ],
+      "http_directory": "{{ template_dir }}/cloud-init"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "{{ template_dir }}/../scripts/wait_for_cloud_init.sh"
+    },
+    {
+      "type": "shell",
+      "inline": "sudo cloud-init clean"
+    }
+  ]
+}

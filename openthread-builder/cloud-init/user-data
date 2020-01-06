@@ -1,0 +1,19 @@
+#cloud-config
+hostname: openthread-builder
+manage_etc_hosts: true
+
+apt:
+  preserve_sources_list: true
+
+package_upgrade: true
+packages:
+ - make
+ - automake
+ - g++
+ - libtool
+ - lsb-release
+ - gcc-arm-none-eabi
+
+runcmd:
+ - mkdir /mnt/hgfs
+ - echo ".host:/ /mnt/hgfs fuse.vmhgfs-fuse allow_other,auto_unmount,defaults 0 0" >> /etc/fstab
