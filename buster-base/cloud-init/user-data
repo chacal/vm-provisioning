@@ -1,4 +1,9 @@
 #cloud-config
+hostname: buster-base
+locale: en_US.UTF-8
+timezone: Europe/Helsinki
+manage_etc_hosts: localhost
+
 users:
   - name: jihartik
     lock_passwd: false
@@ -7,3 +12,33 @@ users:
     passwd: $6$rounds=4096$3eVMZiy18$78qn6pCJ9dhLSzMNhSx24YS5xX4NkMEK7ua8eGO.i6ZcwU8CEwXNnxI0CdxffPP3BU3owEbiJhEbH6bu2TnZ1.
     ssh_authorized_keys:
       - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEApxT0ZP4MsFQ7PC43ugWcGNbHLfXN3kqx0rMMhfGsKCxvhLTGYwveDFfIrimCWWCWg248oNR0jzoH5mKz/stidF8fsVubBegAJ32N/f2jJ6hHlnmCbRBCNlm1BL5Yz+YkMVWTMXa38ICaJhOncDwtZvzUqicc6b7GQmRZ4X7tQTUD91ln7t+7VSqEYXeCmvAL4fY8i2PMlWZoaN6FHmquJYH09w0Hu20Nz5SyfqjYk1vhKnDk93CouTcCR4zONcZdyip7b5qQAHfkcyCqZLvFgadedqsFwe2lu9WgpWATTrJUWReykDzk/jHMaivboXxLaVxwvAmF1CejmWV74VNUFw== jihartik@localhost
+
+apt:
+  preserve_sources_list: true
+
+package_upgrade: true
+packages:
+ - net-tools
+ - sysstat
+ - htop
+ - tmux
+ - git
+ - wget
+ - curl
+ - less
+ - libnss-mdns
+ - tcpdump
+ - man
+ - iftop
+ - dnsutils
+ - ndisc6
+ - avahi-daemon
+ - open-vm-tools
+ - zsh
+ - stow
+ - exa
+
+runcmd:
+ - sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
+ - dpkg-reconfigure --frontend=noninteractive locales
+ - update-locale LANG=en_US.UTF-8
