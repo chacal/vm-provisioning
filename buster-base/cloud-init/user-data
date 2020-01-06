@@ -1,6 +1,5 @@
 #cloud-config
 hostname: buster-base
-locale: en_US.UTF-8
 timezone: Europe/Helsinki
 manage_etc_hosts: localhost
 
