@@ -17,6 +17,10 @@ openthread-builder: GUEST_OS=debian10-64
 openthread-builder: VM_NAME=$(notdir $(basename $@))
 openthread-builder: $(VM_DIR)/$$@.vmdk $(VM_DIR)/$$@.vmx
 
+docker-arm-builder: GUEST_OS=debian10-64
+docker-arm-builder: VM_NAME=$(notdir $(basename $@))
+docker-arm-builder: $(VM_DIR)/$$@.vmdk $(VM_DIR)/$$@.vmx
+
 %.vmx:
 	@$(CREATE_VMX) $(VM_NAME) $(GUEST_OS) > $@
 
