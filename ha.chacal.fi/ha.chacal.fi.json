@@ -1,0 +1,45 @@
+{
+  "variables": {
+    "name": "ha.chacal.fi",
+    "github_access_token": "{{env `GITHUB_ACCESS_TOKEN`}}",
+    "hetzner_access_token": "{{env `HETZNER_ACCESS_TOKEN`}}"
+  },
+  "builders": [
+    {
+      "type": "hcloud",
+      "token": "{{user `hetzner_access_token`}}",
+      "image": "debian-10",
+      "location": "hel1",
+      "server_type": "cx11",
+      "server_name": "{{user `name`}}",
+      "snapshot_name": "{{user `name`}}-template",
+      "user_data_file": "{{ template_dir }}/cloud-init/user-data",
+      "ssh_keys": [
+        "jihartik@l486.lan"
+      ],
+      "ssh_username": "root",
+      "ssh_private_key_file": "~/.ssh/id_rsa_hetzner"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "{{ template_dir }}/../scripts/wait_for_cloud_init.sh"
+    },
+    {
+      "type": "shell",
+      "script": "{{ template_dir }}/../scripts/provision_common_base.sh"
+    },
+    {
+      "type": "shell",
+      "script": "{{ template_dir }}/../scripts/setup_dotfiles.sh",
+      "environment_vars": [
+        "GITHUB_ACCESS_TOKEN={{user `github_access_token`}}"
+      ]
+    },
+    {
+      "type": "shell",
+      "inline": "sudo cloud-init clean"
+    }
+  ]
+}

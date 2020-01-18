@@ -25,6 +25,11 @@ docker-arm-builder: GUEST_OS=debian10-64
 docker-arm-builder: VM_NAME=$(notdir $(basename $@))
 docker-arm-builder: $(VM_DIR)/$$@.vmdk $(VM_DIR)/$$@.vmx
 
+.PHONY: ha.chacal.fi
+ha.chacal.fi: VM_NAME=$@
+ha.chacal.fi:
+	@$(PACKER_BUILD) $(VM_NAME)/$(VM_NAME).json
+
 %.vmx:
 	@$(CREATE_VMX) $(VM_NAME) $(GUEST_OS) > $@
 
