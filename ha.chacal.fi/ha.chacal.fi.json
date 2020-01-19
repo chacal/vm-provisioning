@@ -2,7 +2,8 @@
   "variables": {
     "name": "ha.chacal.fi",
     "github_access_token": "{{env `GITHUB_ACCESS_TOKEN`}}",
-    "hetzner_access_token": "{{env `HETZNER_ACCESS_TOKEN`}}"
+    "hetzner_access_token": "{{env `HETZNER_ACCESS_TOKEN`}}",
+    "ansible_dir": "/Users/jihartik/Documents/dev/marinepi-provisioning"
   },
   "builders": [
     {
@@ -40,6 +41,14 @@
     {
       "type": "shell",
       "inline": "sudo cloud-init clean"
+    },
+    {
+      "type": "ansible",
+      "playbook_file": "{{user `ansible_dir`}}/playbooks/chacal/ha.chacal.fi.yml",
+      "ansible_env_vars": [
+        "ANSIBLE_ROLES_PATH={{user `ansible_dir`}}/roles",
+        "ANSIBLE_VAULT_PASSWORD_FILE=/Users/jihartik/.ansible_vault_pass.txt"
+      ]
     }
   ]
 }
