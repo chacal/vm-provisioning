@@ -1,4 +1,7 @@
 {
   "disk_image_dir": "/Users/jihartik/nonbackupped/Disk Images",
-  "vm_dir": "/Users/jihartik/nonbackupped/vm"
+  "vm_dir": "/Users/jihartik/nonbackupped/vm",
+  "proxmox_user": "root@pam",
+  "proxmox_url": "https://fujari.chacal.fi:8006/api2/json",
+  "proxmox_node": "fujari"
 }
