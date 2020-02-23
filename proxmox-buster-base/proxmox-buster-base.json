@@ -34,7 +34,7 @@
         "<esc><wait>",
         "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<enter>"
       ],
-      "iso_url": "http://cdimage.debian.org/cdimage/release/current/amd64/iso-cd/debian-10.3.0-amd64-netinst.iso",
+      "iso_file": "local:iso/debian-10.3.0-amd64-netinst.iso",
       "iso_checksum": "6a901b5abe43d88b39d627e1339d15507cc38f980036b928f835e0f0e957d3d8",
       "iso_storage_pool": "local",
       "http_directory": "{{ template_dir }}",
