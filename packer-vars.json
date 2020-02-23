@@ -3,5 +3,6 @@
   "vm_dir": "/Users/jihartik/nonbackupped/vm",
   "proxmox_user": "root@pam",
   "proxmox_url": "https://fujari.chacal.fi:8006/api2/json",
-  "proxmox_node": "fujari"
+  "proxmox_node": "fujari",
+  "ansible_provisioning_dir": "/Users/jihartik/Documents/dev/marinepi-provisioning/playbooks/chacal"
 }
