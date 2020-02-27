@@ -11,7 +11,8 @@
       "password": "{{user `proxmox_password`}}",
       "node": "{{user `proxmox_node`}}",
       "vm_name": "buster-base",
-      "memory": 1024,
+      "vm_id": 100,
+      "memory": 2048,
       "cores": 2,
       "cpu_type": "host",
       "scsi_controller": "virtio-scsi-pci",
@@ -55,8 +56,13 @@
       "playbook_file": "{{user `ansible_provisioning_dir`}}/proxmox-buster-base.yml",
       "ansible_env_vars": [
         "ANSIBLE_HOST_KEY_CHECKING=False",
-        "ANSIBLE_VAULT_PASSWORD_FILE=~/.ansible_vault_pass.txt"
+        "ANSIBLE_VAULT_PASSWORD_FILE=~/.ansible_vault_pass.txt",
+        "ANSIBLE_ROLES_PATH={{user `ansible_roles_dir`}}"
       ]
+    },
+    {
+      "type": "shell-local",
+      "command": "ssh root@fujari.chacal.fi qm set 100 --ide0 local-zfs:cloudinit"
     }
   ]
 }
