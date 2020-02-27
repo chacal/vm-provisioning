@@ -14,6 +14,7 @@
       "memory": 1024,
       "cores": 2,
       "cpu_type": "host",
+      "scsi_controller": "virtio-scsi-pci",
       "os": "l26",
       "network_adapters": [
         {
@@ -25,6 +26,7 @@
         {
           "type": "scsi",
           "disk_size": "5G",
+          "cache_mode": "writeback",
           "storage_pool": "local-zfs",
           "storage_pool_type": "zfspool",
           "format": "raw"
