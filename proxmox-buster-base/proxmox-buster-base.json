@@ -1,6 +1,6 @@
 {
   "variables": {
-    "proxmox_password": "{{env `PROXMOX_PASSWORD`}}"
+    "proxmox_password": "{{env `PM_PASS`}}"
   },
   "builders": [
     {
