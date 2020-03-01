@@ -21,6 +21,11 @@ variable "ip" {
   type = string
 }
 
+variable "rootfs_archive" {
+  type = string
+  default = "debian-10.0-standard_10.0-1_amd64.tar.gz"
+}
+
 resource "random_id" "random_mac" {
   byte_length = 5
 }
@@ -50,7 +55,7 @@ resource "proxmox_lxc" "lxc" {
     tag = 0
     type = "veth"
   }
-  ostemplate = "local:vztmpl/debian-10.0-standard_10.0-1_amd64.tar.gz"
+  ostemplate = "local:vztmpl/${var.rootfs_archive}"
   ostype = "debian"
   ssh_public_keys = "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEApxT0ZP4MsFQ7PC43ugWcGNbHLfXN3kqx0rMMhfGsKCxvhLTGYwveDFfIrimCWWCWg248oNR0jzoH5mKz/stidF8fsVubBegAJ32N/f2jJ6hHlnmCbRBCNlm1BL5Yz+YkMVWTMXa38ICaJhOncDwtZvzUqicc6b7GQmRZ4X7tQTUD91ln7t+7VSqEYXeCmvAL4fY8i2PMlWZoaN6FHmquJYH09w0Hu20Nz5SyfqjYk1vhKnDk93CouTcCR4zONcZdyip7b5qQAHfkcyCqZLvFgadedqsFwe2lu9WgpWATTrJUWReykDzk/jHMaivboXxLaVxwvAmF1CejmWV74VNUFw== jihartik@localhost"
   storage = "local-zfs"
