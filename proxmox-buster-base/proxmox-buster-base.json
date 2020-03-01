@@ -11,7 +11,6 @@
       "password": "{{user `proxmox_password`}}",
       "node": "{{user `proxmox_node`}}",
       "vm_name": "buster-base",
-      "vm_id": 100,
       "memory": 2048,
       "cores": 2,
       "cpu_type": "host",
@@ -59,10 +58,19 @@
         "ANSIBLE_VAULT_PASSWORD_FILE=~/.ansible_vault_pass.txt",
         "ANSIBLE_ROLES_PATH={{user `ansible_roles_dir`}}"
       ]
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "manifest"
     },
     {
       "type": "shell-local",
-      "command": "ssh root@fujari.chacal.fi qm set 100 --ide0 local-zfs:cloudinit"
+      "inline": [
+        "VM_ID=$(jq -r '.builds[-1].artifact_id' packer-manifest.json | cut -d \":\" -f2)",
+        "ssh root@fujari.chacal.fi qm set ${VM_ID} --ide0 local-zfs:cloudinit",
+        "rm packer-manifest.json"
+      ]
     }
   ]
 }
