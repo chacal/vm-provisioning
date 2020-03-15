@@ -1,26 +1,3 @@
-variable "cores" {
-  type = number
-  default = 1
-}
-
-variable "memory" {
-  type = number
-  default = 1024
-}
-
-variable "disk_size" {
-  type = string
-  default = "100G"
-}
-
-variable "hostname" {
-  type = string
-}
-
-variable "ip" {
-  type = string
-}
-
 resource "random_id" "random_mac" {
   byte_length = 5
 }
@@ -34,7 +11,7 @@ resource "proxmox_vm_qemu" "vm" {
   desc = "tf description"
   target_node = "fujari"
 
-  clone = "buster-base-template"
+  clone = var.template
   full_clone = false
   os_type = "cloud-init"
   ci_wait = 15
@@ -47,7 +24,9 @@ resource "proxmox_vm_qemu" "vm" {
   bootdisk = "scsi0"
 
   ciuser = "jihartik"
-  ipconfig0 = "ip=${var.ip}/24,gw=10.90.70.1"
+  ipconfig0 = "ip=${var.ip}/24,gw=${var.gateway}"
+  nameserver = var.nameserver
+  searchdomain = var.searchdomain
 
   disk {
     id = 0
@@ -61,8 +40,9 @@ resource "proxmox_vm_qemu" "vm" {
   network {
     id = 0
     model = "virtio"
-    bridge = "vmbr0"
+    bridge = var.bridge
     macaddr = local.mac
+    tag = var.vlan
   }
 }
 
