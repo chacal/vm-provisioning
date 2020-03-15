@@ -48,7 +48,6 @@ variable "bridge" {
 
 variable "vlan" {
   type = number
-  default = -1
 }
 
 variable "template" {
