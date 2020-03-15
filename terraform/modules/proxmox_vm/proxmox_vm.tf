@@ -6,7 +6,30 @@ locals {
   mac = format("66:%s", join(":", regex("(.{2})(.{2})(.{2})(.{2})(.{2})", random_id.random_mac.hex)))
 }
 
+resource "null_resource" "user_data_file" {
+  connection {
+    type = "ssh"
+    host = var.pm_host
+    user = var.pm_user
+    password = var.pm_password
+  }
+
+  provisioner "file" {
+    destination = "/var/lib/vz/snippets/user_data.yml"
+    content = templatefile("${path.module}/user_data.tmpl",
+    {
+      hostname = var.hostname
+      fqdn = "${var.hostname}.${var.domain}"
+    })
+  }
+}
+
+
 resource "proxmox_vm_qemu" "vm" {
+  depends_on = [
+    null_resource.user_data_file
+  ]
+
   name = var.hostname
   desc = "tf description"
   target_node = "fujari"
@@ -23,10 +46,10 @@ resource "proxmox_vm_qemu" "vm" {
   scsihw = "virtio-scsi-pci"
   bootdisk = "scsi0"
 
-  ciuser = "jihartik"
   ipconfig0 = "ip=${var.ip}/24,gw=${var.gateway}"
   nameserver = var.nameserver
   searchdomain = var.searchdomain
+  cicustom = "user=local:snippets/user_data.yml"
 
   disk {
     id = 0

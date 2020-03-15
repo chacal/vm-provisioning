@@ -1,0 +1,11 @@
+#cloud-config
+hostname: ${hostname}
+manage_etc_hosts: true
+fqdn: ${fqdn}
+user: jihartik
+chpasswd:
+  expire: False
+users:
+  - default
+package_update: true
+package_upgrade: true
