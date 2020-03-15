@@ -19,7 +19,8 @@
       "network_adapters": [
         {
           "bridge": "vmbr0",
-          "model": "virtio"
+          "model": "virtio",
+          "vlan_tag": "200"
         }
       ],
       "disks": [
