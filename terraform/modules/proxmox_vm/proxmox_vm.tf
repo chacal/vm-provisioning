@@ -56,7 +56,7 @@ resource "proxmox_vm_qemu" "vm" {
     type = "scsi"
     size = var.disk_size
     cache = "writeback"
-    storage = "local-zfs"
+    storage = var.storage
     storage_type = "zfspool"
   }
 

@@ -54,6 +54,11 @@ variable "template" {
   type = string
 }
 
+variable "storage" {
+  type = string
+  default = "local-zfs"
+}
+
 variable "pm_host" {
   type = string
   default = "fujari.chacal.fi"
