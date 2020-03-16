@@ -15,7 +15,7 @@ resource "null_resource" "user_data_file" {
   }
 
   provisioner "file" {
-    destination = "/var/lib/vz/snippets/user_data.yml"
+    destination = "/var/lib/vz/snippets/user_data-${local.mac}.yml"
     content = templatefile("${path.module}/user_data.tmpl",
     {
       hostname = var.hostname
@@ -49,7 +49,7 @@ resource "proxmox_vm_qemu" "vm" {
   ipconfig0 = "ip=${var.ip}/24,gw=${var.gateway}"
   nameserver = var.nameserver
   searchdomain = var.searchdomain
-  cicustom = "user=local:snippets/user_data.yml"
+  cicustom = "user=local:snippets/user_data-${local.mac}.yml"
 
   disk {
     id = 0
