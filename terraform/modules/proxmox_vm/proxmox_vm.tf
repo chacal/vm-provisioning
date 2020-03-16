@@ -35,7 +35,7 @@ resource "proxmox_vm_qemu" "vm" {
   target_node = "fujari"
 
   clone = var.template
-  full_clone = false
+  full_clone = length(regexall("^local-zfs$", var.storage)) > 0 ? false : true
   os_type = "cloud-init"
   ci_wait = 15
 
