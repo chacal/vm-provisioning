@@ -11,7 +11,7 @@ resource "null_resource" "user_data_file" {
     type = "ssh"
     host = var.pm_host
     user = var.pm_user
-    password = var.pm_password
+    private_key = file("~/.ssh/id_rsa")
   }
 
   provisioner "file" {

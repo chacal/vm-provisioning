@@ -68,8 +68,3 @@ variable "pm_user" {
   type = string
   default = "root"
 }
-
-variable "pm_password" {
-  type = string
-}
-

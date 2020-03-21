@@ -1,9 +1,6 @@
-variable "pm_password" {
-  type = string
 }
 
 module "lxc-builder" {
-  pm_password = var.pm_password
   source = "./modules/proxmox_vm"
   template = "buster-base-template-2020-03-14"
   ip = "10.90.70.39"
