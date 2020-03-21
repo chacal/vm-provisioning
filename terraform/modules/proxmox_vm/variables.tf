@@ -59,9 +59,9 @@ variable "storage" {
   default = "local-zfs"
 }
 
-variable "pm_host" {
+variable "pm_node" {
   type = string
-  default = "fujari.chacal.fi"
+  default = "fujari"
 }
 
 variable "pm_user" {

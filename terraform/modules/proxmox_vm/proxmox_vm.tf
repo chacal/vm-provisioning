@@ -9,7 +9,7 @@ locals {
 resource "null_resource" "user_data_file" {
   connection {
     type = "ssh"
-    host = var.pm_host
+    host = "${var.pm_node}.chacal.fi"
     user = var.pm_user
     private_key = file("~/.ssh/id_rsa")
   }
@@ -32,7 +32,7 @@ resource "proxmox_vm_qemu" "vm" {
 
   name = var.hostname
   desc = "tf description"
-  target_node = "fujari"
+  target_node = var.pm_node
 
   clone = var.template
   full_clone = length(regexall("^local-zfs$", var.storage)) > 0 ? false : true
