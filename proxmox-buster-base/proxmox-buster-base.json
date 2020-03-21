@@ -5,7 +5,7 @@
   "builders": [
     {
       "type": "proxmox",
-      "proxmox_url": "{{user `proxmox_url`}}",
+      "proxmox_url": "https://{{user `proxmox_node`}}.chacal.fi:8006/api2/json",
       "insecure_skip_tls_verify": true,
       "username": "{{user `proxmox_user`}}",
       "password": "{{user `proxmox_password`}}",
@@ -69,7 +69,7 @@
       "type": "shell-local",
       "inline": [
         "VM_ID=$(jq -r '.builds[-1].artifact_id' packer-manifest.json | cut -d \":\" -f2)",
-        "ssh root@fujari.chacal.fi qm set ${VM_ID} --ide0 local-zfs:cloudinit",
+        "ssh root@{{user `proxmox_node`}}.chacal.fi qm set ${VM_ID} --ide0 local-zfs:cloudinit",
         "rm packer-manifest.json"
       ]
     }

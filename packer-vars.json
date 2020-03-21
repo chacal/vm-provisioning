@@ -1,8 +1,7 @@
 {
   "disk_image_dir": "/Users/jihartik/nonbackupped/Disk Images",
   "vm_dir": "/Users/jihartik/nonbackupped/vm",
-  "proxmox_user": "root@pam",
-  "proxmox_url": "https://fujari.chacal.fi:8006/api2/json",
+  "proxmox_user": "pve_admin@pam",
   "proxmox_node": "fujari",
   "ansible_provisioning_dir": "/Users/jihartik/Documents/dev/marinepi-provisioning/playbooks/chacal",
   "ansible_roles_dir": "/Users/jihartik/Documents/dev/marinepi-provisioning/roles"
