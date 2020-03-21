@@ -14,3 +14,9 @@ provider "proxmox" {
   pm_tls_insecure = true
   pm_api_url = "https://fujari.chacal.fi:8006/api2/json"
 }
+
+provider "proxmox" {
+  alias = "wario"
+  pm_tls_insecure = true
+  pm_api_url = "https://wario.chacal.fi:8006/api2/json"
+}
