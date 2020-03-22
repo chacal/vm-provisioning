@@ -54,3 +54,8 @@ variable "storage" {
   type = string
   default = "local-zfs"
 }
+
+variable "pm_node" {
+  type = string
+  default = "fujari"
+}

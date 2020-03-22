@@ -33,7 +33,7 @@ resource "proxmox_lxc" "lxc" {
   ostype = "debian"
   ssh_public_keys = "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEApxT0ZP4MsFQ7PC43ugWcGNbHLfXN3kqx0rMMhfGsKCxvhLTGYwveDFfIrimCWWCWg248oNR0jzoH5mKz/stidF8fsVubBegAJ32N/f2jJ6hHlnmCbRBCNlm1BL5Yz+YkMVWTMXa38ICaJhOncDwtZvzUqicc6b7GQmRZ4X7tQTUD91ln7t+7VSqEYXeCmvAL4fY8i2PMlWZoaN6FHmquJYH09w0Hu20Nz5SyfqjYk1vhKnDk93CouTcCR4zONcZdyip7b5qQAHfkcyCqZLvFgadedqsFwe2lu9WgpWATTrJUWReykDzk/jHMaivboXxLaVxwvAmF1CejmWV74VNUFw== jihartik@localhost"
   storage = var.storage
-  target_node = "fujari"
+  target_node = var.pm_node
   unprivileged = true
 
   lifecycle {
