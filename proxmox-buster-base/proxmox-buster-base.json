@@ -69,7 +69,7 @@
       "type": "shell-local",
       "inline": [
         "VM_ID=$(jq -r '.builds[-1].artifact_id' packer-manifest.json | cut -d \":\" -f2)",
-        "ssh root@{{user `proxmox_node`}}.chacal.fi qm set ${VM_ID} --ide0 local-zfs:cloudinit",
+        "ssh root@{{user `proxmox_node`}}.chacal.fi qm set ${VM_ID} --net0 virtio,bridge=vmbr0,tag=100 --ide0 local-zfs:cloudinit --nameserver 10.50.100.1 --searchdomain chacal.fi --ipconfig0 ip=dhcp",
         "rm packer-manifest.json"
       ]
     }
