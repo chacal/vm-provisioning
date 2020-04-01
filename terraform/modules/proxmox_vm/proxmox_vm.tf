@@ -67,6 +67,17 @@ resource "proxmox_vm_qemu" "vm" {
     macaddr = local.mac
     tag = var.vlan
   }
+
+  dynamic "network" {
+    for_each = var.extra_network != null ? [1] : []
+    content {
+      id = 1
+      model = "virtio"
+      bridge = var.extra_network.bridge
+      macaddr = var.extra_network.mac
+      tag = var.extra_network.tag
+    }
+  }
 }
 
 module "dns-name" {

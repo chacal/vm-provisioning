@@ -68,3 +68,12 @@ variable "pm_user" {
   type = string
   default = "root"
 }
+
+variable "extra_network" {
+  type = object({
+    bridge = string
+    mac = string
+    tag = number
+  })
+  default = null
+}
