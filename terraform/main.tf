@@ -2,6 +2,7 @@ locals {
   ip = {
     elastic = "10.50.100.2"
     lxc-builder = "10.50.100.3"
+    sensor-backend = "10.50.100.4"
     monitor = "10.50.101.2"
     edge-dmz = "10.50.102.2"
     tuuleeko-dmz = "10.50.102.3"
@@ -39,6 +40,21 @@ module "lxc-builder" {
   cores = 4
   memory = 2048
   storage = "local-zfs-nonbackupped"
+}
+
+module "sensor-backend" {
+  source = "./modules/proxmox_vm"
+  pm_node = "wario"
+  providers = {
+    proxmox = proxmox.wario
+  }
+  template = "buster-base-template-2020-03-30"
+  ip = local.ip.sensor-backend
+  vlan = 100
+  hostname = "sensor-backend.chacal.fi"
+  cores = 2
+  memory = 2048
+  storage = "local-zfs"
 }
 
 module "monitor" {
