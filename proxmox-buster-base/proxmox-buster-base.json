@@ -1,6 +1,7 @@
 {
   "variables": {
-    "proxmox_password": "{{env `PM_PASS`}}"
+    "proxmox_password": "{{env `PM_PASS`}}",
+    "disk_size": "50G"
   },
   "builders": [
     {
@@ -26,7 +27,7 @@
       "disks": [
         {
           "type": "scsi",
-          "disk_size": "5G",
+          "disk_size": "{{user `disk_size`}}",
           "cache_mode": "writeback",
           "storage_pool": "local-zfs",
           "storage_pool_type": "zfspool",
@@ -69,7 +70,8 @@
       "type": "shell-local",
       "inline": [
         "VM_ID=$(jq -r '.builds[-1].artifact_id' packer-manifest.json | cut -d \":\" -f2)",
-        "ssh root@{{user `proxmox_node`}}.chacal.fi qm set ${VM_ID} --net0 virtio,bridge=vmbr0,tag=100 --ide0 local-zfs:cloudinit --nameserver 10.50.100.1 --searchdomain chacal.fi --ipconfig0 ip=dhcp",
+        "ssh root@{{user `proxmox_node`}}.chacal.fi qm set ${VM_ID} --net0 virtio,bridge=vmbr0,tag=100 --nameserver 10.50.100.1 --searchdomain chacal.fi --ipconfig0 ip=dhcp",
+        "ssh root@{{user `proxmox_node`}}.chacal.fi qm set ${VM_ID} --ide0 local-zfs:cloudinit --scsi0 local-zfs:base-${VM_ID}-disk-0,cache=writeback,format=raw,media=disk,size={{user `disk_size`}},discard=on",
         "rm packer-manifest.json"
       ]
     }
