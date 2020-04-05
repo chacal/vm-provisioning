@@ -52,8 +52,8 @@ module "sensor-backend" {
   ip = local.ip.sensor-backend
   vlan = 100
   hostname = "sensor-backend.chacal.fi"
-  cores = 2
-  memory = 2048
+  cores = 6
+  memory = 4096
   storage = "local-zfs"
 }
 
