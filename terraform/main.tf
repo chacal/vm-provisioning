@@ -6,6 +6,7 @@ locals {
     monitor = "10.50.101.2"
     edge-dmz = "10.50.102.2"
     tuuleeko-dmz = "10.50.102.3"
+    sensors-dmz = "10.50.102.4"
   }
   gateway = {
     MONITOR = "10.50.101.1"
@@ -106,6 +107,23 @@ module "tuuleeko-dmz" {
   ip = local.ip.tuuleeko-dmz
   vlan = 102
   hostname = "tuuleeko.dmz.chacal.fi"
+  gateway = local.gateway.DMZ
+  nameserver = local.gateway.DMZ
+  cores = 2
+  memory = 1024
+  storage = "local-zfs-nonbackupped"
+}
+
+module "sensors-dmz" {
+  source = "./modules/proxmox_vm"
+  pm_node = "wario"
+  providers = {
+    proxmox = proxmox.wario
+  }
+  template = "buster-base-template-2020-04-04"
+  ip = local.ip.sensors-dmz
+  vlan = 102
+  hostname = "sensors.dmz.chacal.fi"
   gateway = local.gateway.DMZ
   nameserver = local.gateway.DMZ
   cores = 2
