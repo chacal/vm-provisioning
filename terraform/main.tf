@@ -3,6 +3,7 @@ locals {
     elastic = "10.50.100.2"
     lxc-builder = "10.50.100.3"
     sensor-backend = "10.50.100.4"
+    sensor-backend2 = "10.50.100.5"
     monitor = "10.50.101.2"
     edge-dmz = "10.50.102.2"
     tuuleeko-dmz = "10.50.102.3"
@@ -56,6 +57,17 @@ module "sensor-backend" {
   cores = 8
   memory = 4096
   storage = "local-zfs"
+}
+
+module "sensor-backend2" {
+  source = "./modules/proxmox_vm"
+  template = "buster-base-template-2020-04-04"
+  ip = local.ip.sensor-backend2
+  vlan = 100
+  hostname = "sensor-backend2"
+  cores = 8
+  memory = 2048
+  storage = "local-zfs-nonbackupped"
 }
 
 module "monitor" {
