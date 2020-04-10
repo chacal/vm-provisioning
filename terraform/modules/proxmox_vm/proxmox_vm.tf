@@ -4,6 +4,7 @@ resource "random_id" "random_mac" {
 
 locals {
   mac = format("66:%s", join(":", regex("(.{2})(.{2})(.{2})(.{2})(.{2})", random_id.random_mac.hex)))
+  fqdn = "${var.hostname}.${var.domain}"
 }
 
 resource "null_resource" "user_data_file" {
@@ -19,7 +20,7 @@ resource "null_resource" "user_data_file" {
     content = templatefile("${path.module}/user_data.tmpl",
     {
       hostname = var.hostname
-      fqdn = "${var.hostname}.${var.domain}"
+      fqdn = local.fqdn
     })
   }
 }
@@ -30,7 +31,7 @@ resource "proxmox_vm_qemu" "vm" {
     null_resource.user_data_file
   ]
 
-  name = var.hostname
+  name = local.fqdn
   desc = "tf description"
   target_node = var.pm_node
 
@@ -82,6 +83,6 @@ resource "proxmox_vm_qemu" "vm" {
 
 module "dns-name" {
   source = "../chacal.fi-name"
-  hostname = var.hostname
+  fqdn = local.fqdn
   ip = var.ip
 }

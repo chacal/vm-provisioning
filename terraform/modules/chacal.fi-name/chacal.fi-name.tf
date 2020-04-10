@@ -1,4 +1,4 @@
-variable "hostname" {
+variable "fqdn" {
   type = string
 }
 
@@ -8,7 +8,7 @@ variable "ip" {
 
 resource "aws_route53_record" "fqdn" {
   zone_id = "Z2BP7OJ10ULLAP"
-  name    = var.hostname
+  name    = var.fqdn
   type    = "A"
   ttl     = "60"
   records = [var.ip]

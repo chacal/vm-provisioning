@@ -23,7 +23,7 @@ module "elastic" {
   template = "buster-base-template-2020-03-21"
   ip = local.ip.elastic
   vlan = 100
-  hostname = "elastic.chacal.fi"
+  hostname = "elastic"
   cores = 6
   memory = 8192
 }
@@ -37,7 +37,7 @@ module "lxc-builder" {
   template = "buster-base-template-2020-03-21"
   ip = local.ip.lxc-builder
   vlan = 100
-  hostname = "lxc-builder.chacal.fi"
+  hostname = "lxc-builder"
   cores = 4
   memory = 2048
   storage = "local-zfs-nonbackupped"
@@ -52,7 +52,7 @@ module "sensor-backend" {
   template = "buster-base-template-2020-03-30"
   ip = local.ip.sensor-backend
   vlan = 100
-  hostname = "sensor-backend.chacal.fi"
+  hostname = "sensor-backend"
   cores = 8
   memory = 4096
   storage = "local-zfs"
@@ -67,7 +67,7 @@ module "monitor" {
   template = "buster-base-template-2020-03-21"
   ip = local.ip.monitor
   vlan = 101
-  hostname = "monitor.chacal.fi"
+  hostname = "monitor"
   gateway = local.gateway.MONITOR
   nameserver = local.gateway.MONITOR
   cores = 2
@@ -84,7 +84,7 @@ module "edge-dmz" {
   template = "buster-base-template-2020-03-30"
   ip = local.ip.edge-dmz
   vlan = 102
-  hostname = "edge.dmz.chacal.fi"
+  hostname = "edge.dmz"
   gateway = local.gateway.DMZ
   nameserver = local.gateway.DMZ
   extra_network = {
@@ -106,7 +106,7 @@ module "tuuleeko-dmz" {
   template = "buster-base-template-2020-03-30"
   ip = local.ip.tuuleeko-dmz
   vlan = 102
-  hostname = "tuuleeko.dmz.chacal.fi"
+  hostname = "tuuleeko.dmz"
   gateway = local.gateway.DMZ
   nameserver = local.gateway.DMZ
   cores = 2
@@ -123,7 +123,7 @@ module "sensors-dmz" {
   template = "buster-base-template-2020-04-04"
   ip = local.ip.sensors-dmz
   vlan = 102
-  hostname = "sensors.dmz.chacal.fi"
+  hostname = "sensors.dmz"
   gateway = local.gateway.DMZ
   nameserver = local.gateway.DMZ
   cores = 2
