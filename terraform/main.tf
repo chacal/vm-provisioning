@@ -8,6 +8,7 @@ locals {
     edge-dmz = "10.50.102.2"
     tuuleeko-dmz = "10.50.102.3"
     sensors-dmz = "10.50.102.4"
+    signalk-stash-dmz = "10.50.102.5"
   }
   gateway = {
     MONITOR = "10.50.101.1"
@@ -141,4 +142,26 @@ module "sensors-dmz" {
   cores = 2
   memory = 1024
   storage = "local-zfs-nonbackupped"
+}
+
+module "signalk-stash-dmz" {
+  source = "./modules/proxmox_vm"
+  pm_node = "wario"
+  providers = {
+    proxmox = proxmox.wario
+  }
+  template = "buster-base-template-2020-04-04"
+  ip = local.ip.signalk-stash-dmz
+  vlan = 102
+  hostname = "signalk-stash.dmz"
+  gateway = local.gateway.DMZ
+  nameserver = local.gateway.DMZ
+  extra_network = {
+    bridge = "wanbr0"
+    mac = "00:50:56:00:90:30"
+    tag = -1
+  }
+  cores = 4
+  memory = 4096
+  storage = "local-zfs"
 }
