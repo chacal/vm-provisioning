@@ -4,6 +4,8 @@ locals {
     lxc-builder = "10.50.100.3"
     sensor-backend = "10.50.100.4"
     sensor-backend2 = "10.50.100.5"
+    azure-agent1 = "10.50.100.6"
+    azure-agent2 = "10.50.100.7"
     monitor = "10.50.101.2"
     edge-dmz = "10.50.102.2"
     tuuleeko-dmz = "10.50.102.3"
@@ -68,6 +70,36 @@ module "sensor-backend2" {
   hostname = "sensor-backend2"
   cores = 8
   memory = 2048
+  storage = "local-zfs-nonbackupped"
+}
+
+module "azure-agent1" {
+  source = "./modules/proxmox_vm"
+  pm_node = "wario"
+  providers = {
+    proxmox = proxmox.wario
+  }
+  template = "buster-base-template-2020-04-04"
+  ip = local.ip.azure-agent1
+  vlan = 100
+  hostname = "azure-agent1"
+  cores = 2
+  memory = 4096
+  storage = "local-zfs-nonbackupped"
+}
+
+module "azure-agent2" {
+  source = "./modules/proxmox_vm"
+  pm_node = "wario"
+  providers = {
+    proxmox = proxmox.wario
+  }
+  template = "buster-base-template-2020-04-04"
+  ip = local.ip.azure-agent2
+  vlan = 100
+  hostname = "azure-agent2"
+  cores = 2
+  memory = 4096
   storage = "local-zfs-nonbackupped"
 }
 
