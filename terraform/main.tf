@@ -69,7 +69,7 @@ module "sensor-backend2" {
   vlan = 100
   hostname = "sensor-backend2"
   cores = 8
-  memory = 2048
+  memory = 4096
   storage = "local-zfs-nonbackupped"
 }
 
