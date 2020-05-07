@@ -8,6 +8,7 @@ locals {
     azure-agent2 = "10.50.100.7"
     afp = "10.50.100.8"
     smb = "10.50.100.9"
+    haukkakallio = "10.50.100.10"
     monitor = "10.50.101.2"
     edge-dmz = "10.50.102.2"
     tuuleeko-dmz = "10.50.102.3"
@@ -127,6 +128,17 @@ module "smb" {
   memory = 1024
   storage = "hdd-zfs-nonbackupped"
   disk_size = "1000G"
+}
+
+module "haukkakallio" {
+  source = "./modules/proxmox_vm"
+  template = "buster-base-template-2020-04-04"
+  ip = local.ip.haukkakallio
+  vlan = 100
+  hostname = "haukkakallio"
+  cores = 2
+  memory = 1024
+  storage = "local-zfs-nonbackupped"
 }
 
 module "monitor" {
