@@ -137,7 +137,7 @@ module "haukkakallio" {
   vlan = 100
   hostname = "haukkakallio"
   cores = 2
-  memory = 1024
+  memory = 2048
   storage = "local-zfs-nonbackupped"
 }
 
