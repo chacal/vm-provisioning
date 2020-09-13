@@ -9,6 +9,7 @@ locals {
     afp = "10.50.100.8"
     smb = "10.50.100.9"
     haukkakallio = "10.50.100.10"
+    minio = "10.50.100.11"
     monitor = "10.50.101.2"
     edge-dmz = "10.50.102.2"
     tuuleeko-dmz = "10.50.102.3"
@@ -107,6 +108,7 @@ module "azure-agent2" {
   storage = "local-zfs-nonbackupped"
 }
 
+/*
 module "afp" {
   source = "./modules/proxmox_vm"
   template = "buster-base-template-2020-04-04"
@@ -118,6 +120,7 @@ module "afp" {
   storage = "local-zfs-nonbackupped"
   disk_size = "700G"
 }
+*/
 
 module "smb" {
   source = "./modules/proxmox_vm"
@@ -140,6 +143,18 @@ module "haukkakallio" {
   cores = 2
   memory = 2048
   storage = "local-zfs-nonbackupped"
+}
+
+module "minio" {
+  source = "./modules/proxmox_vm"
+  template = "buster-base-template-2020-04-04"
+  ip = local.ip.minio
+  vlan = 100
+  hostname = "minio"
+  cores = 2
+  memory = 1024
+  storage = "local-zfs-nonbackupped"
+  disk_size = "700G"
 }
 
 module "monitor" {
