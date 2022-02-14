@@ -66,7 +66,7 @@ resource "proxmox_vm_qemu" "vm" {
     size = var.disk_size
     cache = "writeback"
     storage = var.storage
-    storage_type = "zfspool"
+    discard = "on"
   }
 
   network {
