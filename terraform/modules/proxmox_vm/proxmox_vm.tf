@@ -62,7 +62,6 @@ resource "proxmox_vm_qemu" "vm" {
   cicustom = "user=local:snippets/user_data-${local.mac}.yml"
 
   disk {
-    id = 0
     type = "scsi"
     size = var.disk_size
     cache = "writeback"
@@ -71,7 +70,6 @@ resource "proxmox_vm_qemu" "vm" {
   }
 
   network {
-    id = 0
     model = "virtio"
     bridge = var.bridge
     macaddr = local.mac
@@ -81,7 +79,6 @@ resource "proxmox_vm_qemu" "vm" {
   dynamic "network" {
     for_each = var.extra_network != null ? [1] : []
     content {
-      id = 1
       model = "virtio"
       bridge = var.extra_network.bridge
       macaddr = var.extra_network.mac
