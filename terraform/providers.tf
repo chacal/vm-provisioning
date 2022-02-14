@@ -12,6 +12,13 @@ terraform {
     key    = "home-infra.tfstate"
     region = "eu-north-1"
   }
+
+  required_providers {
+    proxmox = {
+      source = "telmate/proxmox"
+      version = "2.7.4"
+    }
+  }
 }
 
 provider "aws" {

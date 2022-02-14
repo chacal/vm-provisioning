@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    proxmox = {
+      source = "telmate/proxmox"
+      version = "2.7.4"
+    }
+  }
+}
+
 resource "random_id" "random_mac" {
   byte_length = 5
 }
