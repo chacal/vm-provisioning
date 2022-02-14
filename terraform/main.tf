@@ -10,6 +10,7 @@ locals {
     smb = "10.50.100.9"
     haukkakallio = "10.50.100.10"
     minio = "10.50.100.11"
+    docker-registry = "10.50.100.12"
     monitor = "10.50.101.2"
     edge-dmz = "10.50.102.2"
     tuuleeko-dmz = "10.50.102.3"
@@ -157,6 +158,21 @@ module "minio" {
   disk_size = "700G"
 }
 
+module "docker-registry" {
+  source = "./modules/proxmox_vm"
+  pm_node = "wario"
+  providers = {
+    proxmox = proxmox.wario
+  }
+  template = "buster-base-template-2020-09-22"
+  ip = local.ip.docker-registry
+  vlan = 100
+  hostname = "docker-registry"
+  cores = 2
+  memory = 1024
+  storage = "local-zfs-nonbackupped"
+  disk_size = "100G"
+}
 module "monitor" {
   source = "./modules/proxmox_vm"
   pm_node = "wario"
