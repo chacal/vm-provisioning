@@ -147,7 +147,7 @@ module "haukkakallio" {
 
 module "minio" {
   source = "./modules/proxmox_vm"
-  template = "buster-base-template-2020-04-04"
+  template = "bullseye-base-template-2022-02-12"
   ip = local.ip.minio
   vlan = 100
   hostname = "minio"
