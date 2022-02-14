@@ -247,8 +247,8 @@ module "signalk-stash-dmz" {
     mac = "00:50:56:00:90:30"
     tag = -1
   }
-  cores = 4
-  memory = 4096
+  cores = 6
+  memory = 8192
   storage = "local-zfs"
 }
 
@@ -265,6 +265,6 @@ module "homeassistant-dmz" {
   gateway = local.gateway.DMZ
   nameserver = local.gateway.DMZ
   cores = 2
-  memory = 1024
+  memory = 2048
   storage = "local-zfs"
 }
